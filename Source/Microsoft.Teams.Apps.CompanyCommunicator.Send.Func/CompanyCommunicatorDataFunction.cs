@@ -178,7 +178,7 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Data.Func
         private NotificationDataRepository CreateNotificationRepository(IConfiguration configuration)
         {
             var tableRowKeyGenerator = new TableRowKeyGenerator();
-            return new NotificationDataRepository(configuration, tableRowKeyGenerator, isFromAzureFunction: true);
+            return new NotificationDataRepository(configuration, tableRowKeyGenerator);
         }
 
         private async Task SetEmptyNotificationDataEntity(string notificationId)
