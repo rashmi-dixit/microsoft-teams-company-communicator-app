@@ -445,8 +445,12 @@
               "value": "[reference(resourceId('microsoft.insights/components/', variables('appInsightsName')), '2015-05-01').InstrumentationKey]"
             },
             {
+              "name": "MaxMinutesOfRetryingDataFunction",
+              "value": "1440"
+            },
+            {
               "name": "MaxNumberOfAttempts",
-              "value": "30"
+              "value": "10"
             },
             {
               "name": "MicrosoftAppId",
@@ -459,6 +463,10 @@
             {
               "name": "StorageAccountConnectionString",
               "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "SendRetryDelayNumberOfMinutes",
+              "value": "11"
             },
             {
               "name": "ServiceBusConnection",
