@@ -98,16 +98,16 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Send.Func
                     ?? new HttpClient();
 
                 CompanyCommunicatorSendFunction.userDataRepository = CompanyCommunicatorSendFunction.userDataRepository
-                    ?? new UserDataRepository(CompanyCommunicatorSendFunction.configuration, isFromAzureFunction: true);
+                    ?? new UserDataRepository(CompanyCommunicatorSendFunction.configuration, new RepositoryOptions { IsAzureFunction = true });
 
                 CompanyCommunicatorSendFunction.sendingNotificationDataRepository = CompanyCommunicatorSendFunction.sendingNotificationDataRepository
-                    ?? new SendingNotificationDataRepository(CompanyCommunicatorSendFunction.configuration, isFromAzureFunction: true);
+                    ?? new SendingNotificationDataRepository(CompanyCommunicatorSendFunction.configuration, new RepositoryOptions { IsAzureFunction = true });
 
                 CompanyCommunicatorSendFunction.globalSendingNotificationDataRepository = CompanyCommunicatorSendFunction.globalSendingNotificationDataRepository
                     ?? new GlobalSendingNotificationDataRepository(CompanyCommunicatorSendFunction.configuration, isFromAzureFunction: true);
 
                 CompanyCommunicatorSendFunction.sentNotificationDataRepository = CompanyCommunicatorSendFunction.sentNotificationDataRepository
-                    ?? new SentNotificationDataRepository(CompanyCommunicatorSendFunction.configuration, isFromAzureFunction: true);
+                    ?? new SentNotificationDataRepository(CompanyCommunicatorSendFunction.configuration, new RepositoryOptions { IsAzureFunction = true });
 
                 if (CompanyCommunicatorSendFunction.botAccessToken == null
                     || CompanyCommunicatorSendFunction.botAccessTokenExpiration == null
