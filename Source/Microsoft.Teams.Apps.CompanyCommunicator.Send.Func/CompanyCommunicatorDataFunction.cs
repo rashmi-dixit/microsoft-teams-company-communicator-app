@@ -17,6 +17,7 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Data.Func
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.NotificationData;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.SentNotificationData;
+    using Microsoft.Teams.Apps.CompanyCommunicator.Common.Services.MessageQueue;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -25,6 +26,8 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Data.Func
     /// </summary>
     public class CompanyCommunicatorDataFunction
     {
+        private const string ServiceBusConnectionConfigKey = "ServiceBusConnection";
+
         private static SentNotificationDataRepository sentNotificationDataRepository = null;
 
         private static NotificationDataRepository notificationDataRepository = null;
@@ -46,7 +49,9 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Data.Func
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [FunctionName("CompanyCommunicatorDataFunction")]
         public async Task Run(
-            [ServiceBusTrigger("company-communicator-data", Connection = "ServiceBusConnection")]
+            [ServiceBusTrigger(
+                DataQueue.QueueName,
+                Connection = CompanyCommunicatorDataFunction.ServiceBusConnectionConfigKey)]
             string myQueueItem,
             int deliveryCount,
             DateTime enqueuedTimeUtc,
@@ -168,9 +173,9 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Data.Func
             var serviceBusMessage = new Message(Encoding.UTF8.GetBytes(messageBody));
             serviceBusMessage.ScheduledEnqueueTimeUtc = DateTime.UtcNow + TimeSpan.FromSeconds(30);
 
-            string serviceBusConnectionString = configuration["ServiceBusConnection"];
-            string queueName = "company-communicator-data";
-            var messageSender = new MessageSender(serviceBusConnectionString, queueName);
+            var messageSender = new MessageSender(
+                configuration[CompanyCommunicatorDataFunction.ServiceBusConnectionConfigKey],
+                DataQueue.QueueName);
 
             await messageSender.SendAsync(serviceBusMessage);
         }
