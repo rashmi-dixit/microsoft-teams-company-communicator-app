@@ -9,6 +9,7 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Teams.Apps.CompanyCommunicator.Authentication;
+    using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.ConfigurationData;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.TeamData;
     using Microsoft.Teams.Apps.CompanyCommunicator.Models;
 
@@ -20,14 +21,17 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Controllers
     public class TeamDataController : ControllerBase
     {
         private readonly TeamDataRepository teamDataRepository;
+        private readonly ConfigurationDataRepository configurationDataRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TeamDataController"/> class.
         /// </summary>
         /// <param name="teamDataRepository">Team data repository instance.</param>
-        public TeamDataController(TeamDataRepository teamDataRepository)
+        /// <param name="configurationDataRepository">configuration data repository instance.</param>
+        public TeamDataController(TeamDataRepository teamDataRepository, ConfigurationDataRepository configurationDataRepository)
         {
             this.teamDataRepository = teamDataRepository;
+            this.configurationDataRepository = configurationDataRepository;
         }
 
         /// <summary>
@@ -50,6 +54,17 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Controllers
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Get configuration data.
+        /// </summary>
+        /// <returns>a boolan value</returns>
+        [HttpGet("sendToEnveryoneOptionEnableDisable")]
+        public async Task<bool> GetConfigurationDataAsync()
+        {
+            var configurationValue = await this.configurationDataRepository.GetConfigDataSendOptionAsync();
+            return configurationValue == null ? false : configurationValue.Value;
         }
     }
 }

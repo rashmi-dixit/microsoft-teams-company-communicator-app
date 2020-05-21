@@ -6,6 +6,7 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Repositories
 {
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories;
+    using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.ConfigurationData;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.NotificationData;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.SentNotificationData;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.TeamData;
@@ -28,6 +29,7 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Repositories
             services.AddSingleton<UserDataRepository>();
             services.AddSingleton<TeamDataRepository>();
             services.AddSingleton<TableRowKeyGenerator>();
+            services.AddSingleton<ConfigurationDataRepository>();
         }
     }
 }

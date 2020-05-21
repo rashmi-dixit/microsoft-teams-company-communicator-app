@@ -87,5 +87,21 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories
             /// </summary>
             public static readonly string DefaultPartition = "Default";
         }
+
+        /// <summary>
+        /// Configuration data table partition key names.
+        /// </summary>
+        public static class ConfigurationDataTable
+        {
+            /// <summary>
+            /// Table name for sent notification data table
+            /// </summary>
+            public static readonly string TableName = "ConfigurationData";
+
+            /// <summary>
+            /// Default partion - should not be used.
+            /// </summary>
+            public static readonly string SendToEveryoneKey = "SendToEveryoneEnabled";
+        }
     }
 }
