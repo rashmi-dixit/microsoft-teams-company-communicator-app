@@ -69,6 +69,7 @@ class SendConfirmationTaskModule extends React.Component<RouteComponentProps, IS
         } catch (error) {
             return error;
         }
+    }
 
     public componentDidMount() {
         microsoftTeams.initialize();
