@@ -28,8 +28,8 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Repositories
             services.AddSingleton<NotificationDataRepository>();
             services.AddSingleton<UserDataRepository>();
             services.AddSingleton<TeamDataRepository>();
-            services.AddSingleton<TableRowKeyGenerator>();
             services.AddSingleton<ConfigurationDataRepository>();
+            services.AddSingleton<TableRowKeyGenerator>();        
         }
     }
 }
